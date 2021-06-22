@@ -1,0 +1,26 @@
+
+<button (click)="openmodal()" style="background-color: greenyellow;"> <h2>Add Contact +</h2></button>
+<div class="modal" #mymodal style="background-color:burlywood;   
+width: 40%; /* Full width */
+height: 40%; /* Full height */
+display:flex;
+justify-content: center;
+align-items: center;" >
+<div class="adddiv" style="align-items: center;justify-content:center;">
+    <button (click)="closemodal()" style="background-color: red; float:right;top: 0;right: 0;">X</button>
+    <h1> Add Contact</h1>
+    <form [formGroup]="formgrp">
+        Name<input type="text" formControlName="name"><br/><br/>
+        <div *ngIf = "formgrp.get('name').errors && formgrp.get('name').errors['required']" style="color:red;">name cannot be blank!</div>
+        <div formArrayName="contacts" *ngFor="let contact of formgrp.get('contacts')['controls'];let i=index;">
+           <div [formGroupName]="i" name="formgrp">
+            Phone no<input type="number"  formControlName="phoneno">
+              <button (click)="removeformgrp(i)" style="background-color: crimson;">X</button>
+              <div *ngIf = "contact.get('phoneno').errors && contact.get('phoneno').errors['required']" style="color:red;">notes cannot be blank!</div>
+         
+            </div></div>
+    <button (click)="addformgrp()" >Add phoneno</button><br/><br/>
+       <button (click)="addtodo()" style="font-size:50px;background-color:chartreuse; border: 5px solid green;" type="submit"  name="subbut">submit</button>
+    </form>
+</div>
+</div>
